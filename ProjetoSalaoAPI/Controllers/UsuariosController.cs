@@ -18,37 +18,37 @@ namespace ProjetoSalaoAPI.Controllers
         public UsuariosController(ProjetoSalaoAPIContext context)
         {
             _context = context;
+            if (_context.Usuario.Count() == 0)
+            {
+                _context.Usuario.Add(new Usuario { Login = "Item1" });
+                _context.SaveChanges();
+            }
         }
 
         // GET: api/Usuarios
         [HttpGet]
-        public IEnumerable<Usuario> GetUsuario()
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-            return _context.Usuario;
+            return await _context.Usuario.ToListAsync();
         }
 
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUsuario([FromRoute] int id)
+        public async Task<ActionResult<Usuario>> GetUsuarios(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            var usuarios = await _context.Usuario.FindAsync(id);
 
-            var usuario = await _context.Usuario.FindAsync(id);
-
-            if (usuario == null)
+            if (usuarios == null)
             {
                 return NotFound();
             }
 
-            return Ok(usuario);
+            return usuarios;
         }
 
         // PUT: api/Usuarios/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario([FromRoute] int id, [FromBody] Usuario usuario)
+        public async Task<ActionResult<Usuario>> PutUsuario([FromRoute] int id, [FromBody] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace ProjetoSalaoAPI.Controllers
 
         // POST: api/Usuarios
         [HttpPost]
-        public async Task<IActionResult> PostUsuario([FromBody] Usuario usuario)
+        public async Task<ActionResult<Usuario>> PostUsuario([FromBody] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -93,12 +93,12 @@ namespace ProjetoSalaoAPI.Controllers
             _context.Usuario.Add(usuario);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuar }, usuario);
+            return CreatedAtAction("GetUsuarios", new { id = usuario.IdUsuar }, usuario);
         }
 
         // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario([FromRoute] int id)
+        public async Task<ActionResult<Usuario>> DeleteUsuario([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
