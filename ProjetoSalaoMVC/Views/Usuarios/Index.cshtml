@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProjetoSalaoMVC.Models.Usuario>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Senha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoUsuario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.Senha)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.TipoUsuario)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

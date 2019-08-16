@@ -12,19 +12,21 @@ namespace ProjetoSalaoAPI.Models
         public DateTime DataReserva { get; set; }
         public Pessoas Funcionario { get; set; }
         public Usuario UsuCad { get; set; }
+        public DateTime DataCad { get; set; }
         public ICollection<AgendaItem> AgendaItem { get; set; } = new List<AgendaItem>();
 
         public Agenda()
         {
         }
 
-        public Agenda(int id, Pessoas pessoas, DateTime dataReserva, Pessoas funcionario, Usuario usuCad)
+        public Agenda(int id, Pessoas pessoas, DateTime dataReserva, Pessoas funcionario, Usuario usuCad, DateTime dataCad)
         {
             Id = id;
             Pessoas = pessoas;
             DataReserva = dataReserva;
             Funcionario = funcionario;
             UsuCad = usuCad;
+            DataCad = dataCad;
         }
     }
 }

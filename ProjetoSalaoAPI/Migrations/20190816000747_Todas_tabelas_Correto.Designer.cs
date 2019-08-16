@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoSalaoAPI.Models;
 
 namespace ProjetoSalaoAPI.Migrations
 {
     [DbContext(typeof(ProjetoSalaoAPIContext))]
-    partial class ProjetoSalaoAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20190816000747_Todas_tabelas_Correto")]
+    partial class Todas_tabelas_Correto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

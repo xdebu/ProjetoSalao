@@ -11,7 +11,6 @@ namespace ProjetoSalaoAPI.Models
         public int Id { get; set; }
         public ItemLanc ItemLanc { get; set; }
         public TipoMovim Tipo { get; set; }
-        public double Quantidade { get; set; }
         public DateTime DataMovim { get; set; }
         public Usuario UsuMovim { get; set; }
 
@@ -19,12 +18,11 @@ namespace ProjetoSalaoAPI.Models
         {
         }
 
-        public Movimentacao(int id, ItemLanc itemLanc, TipoMovim tipo, double quantidade, DateTime dataMovim, Usuario usuMovim)
+        public Movimentacao(int id, ItemLanc itemLanc, TipoMovim tipo, DateTime dataMovim, Usuario usuMovim)
         {
             Id = id;
             ItemLanc = itemLanc;
             Tipo = tipo;
-            Quantidade = quantidade;
             DataMovim = dataMovim;
             UsuMovim = usuMovim;
         }

@@ -13,20 +13,22 @@ namespace ProjetoSalaoAPI.Models
         public TipoProduto Tipo { get; set; }
         public double ValorUnit { get; set; }
         public double QtdeEstoque { get; set; }
-        public Usuario UsuCad { get; set; }
+        public Usuario UsuAtu { get; set; }
+        public DateTime DataAtu { get; set; }
 
         public ProdServ()
         {
         }
 
-        public ProdServ(int id, string descricao, TipoProduto tipo, double valorUnit, double qtdeEstoque, Usuario usuCad)
+        public ProdServ(int id, string descricao, TipoProduto tipo, double valorUnit, double qtdeEstoque, Usuario usuAtu, DateTime dataAtu)
         {
             Id = id;
             Descricao = descricao;
             Tipo = tipo;
             ValorUnit = valorUnit;
             QtdeEstoque = qtdeEstoque;
-            UsuCad = usuCad;
+            UsuAtu = usuAtu;
+            DataAtu = dataAtu;
         }
     }
 }

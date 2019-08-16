@@ -12,14 +12,14 @@ namespace ProjetoSalaoAPI.Models
         public double ValorTotal { get; set; }
         public Usuario UsuCad { get; set; }
         public DateTime DataCad { get; set; }
-        public DateTime DatePagto { get; set; }
+        public DateTime DataPagto { get; set; }
         public ICollection<BoletoVenc> BoletoVenc { get; set; } = new List<BoletoVenc>();
 
         public Boleto()
         {
         }
 
-        public Boleto(int id, int codBarra, int nrDocum, bool alerta, double valorTotal, Usuario usuCad, DateTime dataCad, DateTime datePagto)
+        public Boleto(int id, int codBarra, int nrDocum, bool alerta, double valorTotal, Usuario usuCad, DateTime dataCad, DateTime dataPagto)
         {
             Id = id;
             CodBarra = codBarra;
@@ -28,7 +28,7 @@ namespace ProjetoSalaoAPI.Models
             ValorTotal = valorTotal;
             UsuCad = usuCad;
             DataCad = dataCad;
-            DatePagto = datePagto;
+            DataPagto = dataPagto;
         }
     }
 }
