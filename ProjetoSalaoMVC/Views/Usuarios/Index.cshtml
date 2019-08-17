@@ -9,13 +9,13 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IdUsuar)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Login)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Senha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoUsuario)
             </th>
             <th></th>
         </tr>
@@ -25,13 +25,13 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(ModelItem => item.IdUsuar)
+                </td>
+                <td>
                     @Html.DisplayFor(ModelItem => item.Login)
                 </td>
                 <td>
                     @Html.DisplayFor(ModelItem => item.Senha)
-                </td>
-                <td>
-                    @Html.DisplayFor(ModelItem => item.TipoUsuario)
                 </td>
             </tr>
         }

@@ -1,4 +1,6 @@
-﻿using ProjetoSalaoAPI.Models.Enums;
+﻿using Newtonsoft.Json;
+using ProjetoSalaoAPI.Models.Enums;
+using ProjetoSalaoMVC.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,30 +17,9 @@ namespace ProjetoSalaoMVC.Models
         public string Login { get; set; }
         public string Senha { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
-
-        public Usuario() { }
-
-        public Usuario(int idUsuar, string login, string senha, TipoUsuario tipoUsuario)
-        {
-            IdUsuar = idUsuar;
-            Login = login;
-            Senha = senha;
-            TipoUsuario = tipoUsuario;
-        }
-
-        public T ConverteJSonParaObject<T>(string jsonString)
-        {
-            try
-            {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
-                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
-                T obj = (T)serializer.ReadObject(ms);
-                return obj;
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //public int userId { get; set; }
+        //public int id { get; set; }
+        //public string title { get; set; }
+        //public bool completed { get; set; }
     }   
 }

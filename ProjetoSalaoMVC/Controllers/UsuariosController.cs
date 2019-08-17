@@ -1,66 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using ProjetoSalaoAPI;
 using ProjetoSalaoMVC.Models;
+using Newtonsoft.Json;
+using ProjetoSalaoMVC.Models.Services;
+using System.Threading.Tasks;
 
 namespace ProjetoSalaoMVC.Controllers
 {
     public class UsuariosController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            string ApiBaseUrl = "https://localhost:44303/"; // endereço da sua api
-            string MetodoPath = "api/usuarios";
+            var result = await RequestWS.RequestGET("api/usuarios");
 
-            var model = new Usuario();
-            try
-            {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiBaseUrl + MetodoPath);
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "GET";
+            var json = await result.Content.ReadAsStringAsync();
+            List<Usuario> listaUsuario = JsonConvert.DeserializeObject<List<Usuario>>(json);
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var retorno = JsonConvert.DeserializeObject<List<string>>(streamReader.ReadToEnd());
-
-                    if (retorno != null)
-                    {
-                        DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Usuario));
-                        MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(retorno.ToString()));
-                        Usuario obj = (Usuario)serializer.ReadObject(ms);
-                        model = obj;
-                    }
-                }
-                } catch (Exception e)
-            {
-                throw e;
-            }
-
-            return View(model);
-        }
-
-        public T ConverteJSonParaObject<T>(string jsonString)
-        {
-            try
-            {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
-                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
-                T obj = (T)serializer.ReadObject(ms);
-                return obj;
-            }
-            catch
-            {
-                throw;
-            }
+            return View(listaUsuario);
         }
     }
 }
