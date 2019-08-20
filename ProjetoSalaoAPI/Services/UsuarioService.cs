@@ -1,4 +1,5 @@
-﻿using ProjetoSalaoAPI.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoSalaoAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,12 @@ namespace ProjetoSalaoAPI.Services
         public List<Usuario> FindAll()
         {
             return _context.Usuario.ToList();
+        }
+
+        public void Insert(Usuario obj)
+        {
+            _context.Usuario.Add(obj);
+            _context.SaveChanges();
         }
     }
 }

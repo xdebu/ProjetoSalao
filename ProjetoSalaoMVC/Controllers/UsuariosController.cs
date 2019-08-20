@@ -4,6 +4,9 @@ using ProjetoSalaoMVC.Models;
 using Newtonsoft.Json;
 using ProjetoSalaoMVC.Models.Services;
 using System.Threading.Tasks;
+using System;
+using ProjetoSalaoAPI.Models.Enums;
+using System.Linq;
 
 namespace ProjetoSalaoMVC.Controllers
 {
@@ -17,6 +20,26 @@ namespace ProjetoSalaoMVC.Controllers
             List<Usuario> listaUsuario = JsonConvert.DeserializeObject<List<Usuario>>(json);
 
             return View(listaUsuario);
+        }
+        public async Task<IActionResult> Create()
+        {
+            //var lista = Enum.GetValues(typeof(TipoUsuario)).Cast<int>().ToList();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Usuario usuario)
+        {
+            Usuario obj = new Usuario();
+            obj.Login = usuario.Login;
+            obj.Senha = usuario.Senha;
+            obj.TipoUsuario = usuario.TipoUsuario;
+
+            string json = JsonConvert.SerializeObject(obj);
+            var result = await RequestWS.RequestPOST("api/usuarios", json);
+            
+            return RedirectToAction(nameof(Index));
         }
     }
 }

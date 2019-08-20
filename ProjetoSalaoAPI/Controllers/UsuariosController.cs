@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ProjetoSalaoAPI.Models;
 using ProjetoSalaoAPI.Services;
 
@@ -25,6 +27,13 @@ namespace ProjetoSalaoAPI.Controllers
         public IEnumerable<Usuario> GetUsuarios()
         {
             return _usuarioService.FindAll();
+        }
+
+        [HttpPost]
+        public void PostUsuarios(Usuario usuario)
+        {
+            //Usuario obj = JsonConvert.DeserializeObject<Usuario>(usuario.ToString());
+            _usuarioService.Insert(usuario);
         }
     }
 }
