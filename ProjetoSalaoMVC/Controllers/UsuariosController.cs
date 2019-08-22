@@ -5,8 +5,11 @@ using Newtonsoft.Json;
 using ProjetoSalaoMVC.Models.Services;
 using System.Threading.Tasks;
 using System;
-using ProjetoSalaoAPI.Models.Enums;
+using ProjetoSalaoMVC.Models.Enums;
 using System.Linq;
+using ProjetoSalaoMVC.Models.ViewsModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjetoSalaoMVC.Models.ViewsModel;
 
 namespace ProjetoSalaoMVC.Controllers
 {
@@ -23,9 +26,25 @@ namespace ProjetoSalaoMVC.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            //var lista = Enum.GetValues(typeof(TipoUsuario)).Cast<int>().ToList();
-            return View();
-        }
+            Usuario obj = new Usuario();
+            //List<string> lista = Enum.GetNames(obj.TipoUsuario.GetType()).ToList();
+            var lista = obj.GetTipoUsuarios();
+
+            //var viewModel = new UsuarioFormViewModel { TipoUsuarios = lista };
+
+
+            var enumData = new SelectList(Enum.GetValues(typeof(TipoUsuario)).OfType<Enum>()
+         .Select(x =>
+             new SelectListItem
+             {
+                 Text = Enum.GetName(typeof(TipoUsuario), x),
+                 Value = (Convert.ToInt32(x)).ToString()
+             }), "Value", "Text");
+
+            ViewBag.EnumList = enumData;
+            var viewModel = new UsuarioFormViewModel();
+            return View(viewModel);
+        }        
 
         [HttpPost]
         [ValidateAntiForgeryToken]

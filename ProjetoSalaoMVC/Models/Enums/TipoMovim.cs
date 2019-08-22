@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjetoSalaoAPI.Models.Enums
+namespace ProjetoSalaoMVC.Models.Enums
 {
     public enum TipoMovim : int
     {

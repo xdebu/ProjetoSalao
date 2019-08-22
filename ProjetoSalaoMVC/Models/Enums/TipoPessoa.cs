@@ -1,5 +1,5 @@
 ﻿
-namespace ProjetoSalaoAPI.Models.Enums
+namespace ProjetoSalaoMVC.Models.Enums
 {
     public enum TipoPessoa : int
     {

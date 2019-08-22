@@ -1,15 +1,10 @@
-﻿using Newtonsoft.Json;
-using ProjetoSalaoAPI.Models.Enums;
-using ProjetoSalaoMVC.Models.Services;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjetoSalaoMVC.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjetoSalaoMVC.Models
@@ -23,6 +18,18 @@ namespace ProjetoSalaoMVC.Models
         public string Senha { get; set; }
         [Display(Name = "Tipo do Usuário")]
         public TipoUsuario TipoUsuario { get; set; }
-        //var lista = Enum.GetValues(typeof(TipoUsuario)).Cast<int>().ToList();
+
+        public List<SelectListItem> GetTipoUsuarios()
+        {
+            Usuario obj = new Usuario();
+            // List<string> lista = Enum.GetNames(obj.TipoUsuario.GetType()).ToList();
+            List<SelectListItem> lista = Enum.GetValues(typeof(TipoUsuario)).Cast<TipoUsuario>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+
+            return lista;
+        }
     }
 }

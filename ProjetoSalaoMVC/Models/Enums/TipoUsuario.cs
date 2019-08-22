@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ProjetoSalaoAPI.Models.Enums
+namespace ProjetoSalaoMVC.Models.Enums
 {
     public enum TipoUsuario : int
     {
@@ -19,6 +19,6 @@ namespace ProjetoSalaoAPI.Models.Enums
         Cliente = 2,
         [Description("Visitante")]
         Visitante = 3
+    }
 
-    } 
 }
