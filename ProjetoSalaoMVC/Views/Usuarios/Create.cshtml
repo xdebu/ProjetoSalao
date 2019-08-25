@@ -1,4 +1,4 @@
-﻿@model ProjetoSalaoMVC.Models.ViewsModel.UsuarioFormViewModel;
+﻿@model ProjetoSalaoMVC.Models.Usuario
     @{
         ViewData["Title"] = "Create";
     }
@@ -11,18 +11,13 @@
         <div class="col-md-4">
             <form asp-action="Create">
                 <div class="form-group">
-                    <label asp-for="Usuario.Login" class="control-label"></label>
-                    <input asp-for="Usuario.Login" class="form-control" />
+                    <label asp-for="Login" class="control-label"></label>
+                    <input asp-for="Login" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Usuario.Senha" class="control-label"></label>
-                    <input asp-for="Usuario.Senha" class="form-control" />
+                    <label asp-for="Senha" class="control-label"></label>
+                    <input asp-for="Senha" class="form-control" />
                 </div>
-                <div class="form-group">
-                    <label asp-for="Usuario.TipoUsuario" class="control-label"></label>
-                    <select asp-for="Usuario.TipoUsuario" asp-items="@(new SelectList(Model.TipoUsuarios,"Value","Text"))" class="form-control" />
-                </div>
-
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-default" />
                 </div>

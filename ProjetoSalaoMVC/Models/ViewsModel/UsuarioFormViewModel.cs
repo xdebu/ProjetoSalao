@@ -11,14 +11,7 @@ namespace ProjetoSalaoMVC.Models.ViewsModel
     public class UsuarioFormViewModel
     {
         public Usuario Usuario { get; set; }
-        //public TipoUsuario TipoUsuarios { get; set; }
-
-        public SelectList TipoUsuarios = new SelectList(Enum.GetValues(typeof(TipoUsuario)).OfType<Enum>()
-         .Select(x =>
-             new SelectListItem
-             {
-                 Text = Enum.GetName(typeof(TipoUsuario), x),
-                 Value = (Convert.ToInt32(x)).ToString()
-             }), "Value", "Text");
+        public string IdTipoUsuario { get; set; }
+        
     }
 }

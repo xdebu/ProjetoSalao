@@ -21,9 +21,31 @@ namespace ProjetoSalaoAPI.Services
             return _context.Usuario.ToList();
         }
 
+        public Usuario FindById(int id)
+        {
+            return _context.Usuario.FirstOrDefault(obj => obj.IdUsuar == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.Usuario.Find(id);
+            _context.Usuario.Remove(obj);
+            _context.SaveChanges();
+        }
+
         public void Insert(Usuario obj)
         {
             _context.Usuario.Add(obj);
+            _context.SaveChanges();
+        }
+
+        public void Update(Usuario obj)
+        {
+            if (_context.Usuario.Any(x => x.IdUsuar == obj.IdUsuar))
+            {
+                
+            }
+            _context.Update(obj);
             _context.SaveChanges();
         }
     }

@@ -34,6 +34,27 @@ namespace ProjetoSalaoMVC.Models.Services
             }
         }
 
+        public static async Task<HttpResponseMessage> RequestGETiD(string sdsUrl)
+        {
+            try
+            {
+                var client = new HttpClient(new NativeMessageHandler(
+                           throwOnCaptiveNetwork: false,
+                           customSSLVerification: true))
+                { BaseAddress = new Uri(apiURI, UriKind.Absolute) };
+
+                var response = await client.GetAsync(sdsUrl); //Get
+
+                response.EnsureSuccessStatusCode();
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public static async Task<HttpResponseMessage> RequestPOST(string sdsUrl, string obj)
         {
             try

@@ -19,17 +19,5 @@ namespace ProjetoSalaoMVC.Models
         [Display(Name = "Tipo do Usuário")]
         public TipoUsuario TipoUsuario { get; set; }
 
-        public List<SelectListItem> GetTipoUsuarios()
-        {
-            Usuario obj = new Usuario();
-            // List<string> lista = Enum.GetNames(obj.TipoUsuario.GetType()).ToList();
-            List<SelectListItem> lista = Enum.GetValues(typeof(TipoUsuario)).Cast<TipoUsuario>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList();
-
-            return lista;
-        }
     }
 }

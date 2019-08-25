@@ -32,8 +32,25 @@ namespace ProjetoSalaoAPI.Controllers
         [HttpPost]
         public void PostUsuarios(Usuario usuario)
         {
-            //Usuario obj = JsonConvert.DeserializeObject<Usuario>(usuario.ToString());
             _usuarioService.Insert(usuario);
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteUsuario([FromRoute] int id)
+        {
+            _usuarioService.Remove(id);
+        }
+
+        [HttpGet("{id}")]
+        public Usuario GetUsuario([FromRoute] int id)
+        {
+            return _usuarioService.FindById(id);
+        }
+
+        [HttpPut("{id}")]
+        public void EditaUsuario(Usuario usuario)
+        {
+            _usuarioService.Update(usuario);
         }
     }
 }

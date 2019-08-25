@@ -6,10 +6,6 @@ using ProjetoSalaoMVC.Models.Services;
 using System.Threading.Tasks;
 using System;
 using ProjetoSalaoMVC.Models.Enums;
-using System.Linq;
-using ProjetoSalaoMVC.Models.ViewsModel;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using ProjetoSalaoMVC.Models.ViewsModel;
 
 namespace ProjetoSalaoMVC.Controllers
 {
@@ -24,40 +20,75 @@ namespace ProjetoSalaoMVC.Controllers
 
             return View(listaUsuario);
         }
+
         public async Task<IActionResult> Create()
         {
-            Usuario obj = new Usuario();
-            //List<string> lista = Enum.GetNames(obj.TipoUsuario.GetType()).ToList();
-            var lista = obj.GetTipoUsuarios();
-
-            //var viewModel = new UsuarioFormViewModel { TipoUsuarios = lista };
-
-
-            var enumData = new SelectList(Enum.GetValues(typeof(TipoUsuario)).OfType<Enum>()
-         .Select(x =>
-             new SelectListItem
-             {
-                 Text = Enum.GetName(typeof(TipoUsuario), x),
-                 Value = (Convert.ToInt32(x)).ToString()
-             }), "Value", "Text");
-
-            ViewBag.EnumList = enumData;
-            var viewModel = new UsuarioFormViewModel();
-            return View(viewModel);
-        }        
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Usuario usuario)
         {
+
+            TipoUsuario tp = Enum.Parse<TipoUsuario>("Cliente");
+
             Usuario obj = new Usuario();
             obj.Login = usuario.Login;
             obj.Senha = usuario.Senha;
-            obj.TipoUsuario = usuario.TipoUsuario;
+            obj.TipoUsuario = tp;
 
             string json = JsonConvert.SerializeObject(obj);
             var result = await RequestWS.RequestPOST("api/usuarios", json);
             
+            return RedirectToAction(nameof(Index));
+        }
+
+        //Apresenta a View
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var result = await RequestWS.RequestGET("api/usuarios/" + id);
+            var json = await result.Content.ReadAsStringAsync();
+            Usuario obj = JsonConvert.DeserializeObject<Usuario>(json);
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await RequestWS.RequestDELETE("api/usuarios/" + id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            var result = await RequestWS.RequestGET("api/usuarios/" + id);
+            var json = await result.Content.ReadAsStringAsync();
+            Usuario obj = JsonConvert.DeserializeObject<Usuario>(json);
+            return View(obj);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var result = await RequestWS.RequestGET("api/usuarios/" + id);
+            var json = await result.Content.ReadAsStringAsync();
+            Usuario obj = JsonConvert.DeserializeObject<Usuario>(json);
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Usuario usuario)
+        {
+            Usuario obj = new Usuario();
+            obj.IdUsuar = id;
+            obj.Login = usuario.Login;
+            obj.Senha = usuario.Senha;
+            
+            string json = JsonConvert.SerializeObject(obj);
+
+            var result = await RequestWS.RequestPUT("api/usuarios/" + id , json);
             return RedirectToAction(nameof(Index));
         }
     }
